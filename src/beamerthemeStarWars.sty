@@ -1,0 +1,98 @@
+\ProvidesPackage{beamerthemeStarWars}[2013/10/06 v0.01 beamer theme StarWars]
+
+\mode<presentation>
+
+\usepackage{pslatex}
+
+\useoutertheme[footline=institutetitle, subsection=false]{miniframes}
+
+\setbeamertemplate{navigation symbols}{}
+\setbeamercovered{transparent}
+
+\definecolor{starwarscolor}{HTML}{E5B13A}
+
+\setbeamercolor*{palette primary}{fg=starwarscolor,bg=black}
+\setbeamercolor*{palette secondary}{fg=starwarscolor!30,bg=black}
+
+\setbeamercolor*{author}{fg=starwarscolor,bg=black}
+\setbeamercolor*{date}{fg=starwarscolor,bg=black}
+\setbeamercolor*{page number in head/foot}{fg=starwarscolor,bg=black}
+
+\setbeamercolor{normal text}{fg=black,bg=white}
+\setbeamercolor{alerted text}{fg=red}
+\setbeamercolor{example text}{fg=green!30!black}
+ 
+\setbeamercolor{structure}{fg=black}
+\setbeamercolor*{section in head/foot}{fg=starwarscolor, bg=black}
+\setbeamercolor*{titlelike}{fg=starwarscolor}
+\setbeamercolor*{separation line}{}
+\setbeamercolor*{fine separation line}{}
+
+\setbeamerfont{title}{size=\Huge,shape=\scshape}
+\setbeamerfont{subtitle}{size=\Large,shape=}
+\setbeamerfont{subtitle in head/foot}{size=\scriptsize}
+\setbeamerfont{page number in head/foot}{size=\scriptsize}
+
+\pgfdeclaremask{starwars-mask}{starwars-logo}
+\pgfdeclareimage[mask=starwars-mask,width=5cm]{starwars-logo}{starwars-logo}
+\pgfdeclareimage[mask=starwars-mask,height=0.5cm]{starwars-logo-mini}{starwars-logo}
+
+\defbeamertemplate*{title page}{me}[1][]
+{ 
+  \vbox{}
+  \vfill
+  \begin{centering}
+    \begin{beamercolorbox}[sep=8pt,center,#1]{title}
+      \usebeamerfont{title}\pgfuseimage{starwars-logo}\par
+      \ifx\insertsubtitle\@empty
+      \else
+        \vskip0.25em
+        {\usebeamerfont{subtitle}\usebeamercolor[fg]{subtitle}\insertsubtitle\par}
+      \fi  
+    \end{beamercolorbox}
+    \vskip1em\par
+    \begin{beamercolorbox}[sep=8pt,center,#1]{author}
+      \usebeamerfont{author}\insertauthor
+    \end{beamercolorbox}
+    \begin{beamercolorbox}[sep=8pt,center,#1]{institute}
+      \usebeamerfont{institute}\insertinstitute
+    \end{beamercolorbox}
+    \begin{beamercolorbox}[sep=8pt,center,#1]{date}
+      \usebeamerfont{date}\insertdate
+    \end{beamercolorbox}\vskip0.5em
+    {\usebeamercolor[fg]{titlegraphic}\inserttitlegraphic\par}
+  \end{centering}
+  \vfill
+}
+
+\defbeamertemplate*{footline}{me}{
+  \begin{beamercolorbox}[colsep=1.5pt]{upper separation line foot}
+  \end{beamercolorbox}
+  \begin{beamercolorbox}[ht=6ex,dp=2ex,
+    leftskip=.3cm,rightskip=.3cm plus1fil]{title in head/foot}
+    \begin{minipage}[c]{0.1\paperwidth}
+      \pgfuseimage{starwars-logo-mini}
+    \end{minipage}      
+    \begin{minipage}[c]{0.84\paperwidth}
+      \usebeamerfont{subtitle in head/foot}
+      \insertsubtitle
+      \hfill
+      \usebeamerfont{page number in head/foot}
+      \usebeamercolor[fg]{page number in head/foot} 
+      \insertframenumber /\inserttotalframenumber
+      \end{minipage}  
+    \vfill 
+  \end{beamercolorbox}
+  \begin{beamercolorbox}[colsep=1.5pt]{lower separation line foot}
+  \end{beamercolorbox}
+}
+
+\newcommand{\pagetitle}[1]{
+  \setbeamercolor*{titlelike}{parent=palette primary}
+  \setbeamercolor{background canvas}{bg=black}
+  \frame[plain]{\titlepage #1}
+  \setbeamercolor*{titlelike}{use=structure,fg=structure.fg}
+  \pgfdeclaremask{background-mask}{background}
+  \pgfdeclareimage[mask=background-mask,width=14.87cm, height=10.09cm]{background-image}{background}
+  \setbeamertemplate{background canvas}{\pgfuseimage{background-image}}
+}
